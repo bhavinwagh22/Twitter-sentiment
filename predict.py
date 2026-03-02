@@ -3,6 +3,20 @@ import re
 import numpy as np
 import nltk
 
+
+import nltk
+
+# These two lines are the "voice" of your model
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
+
 # ✅ download FIRST
 nltk.download('punkt', quiet=True)
 nltk.download('stopwords', quiet=True)
