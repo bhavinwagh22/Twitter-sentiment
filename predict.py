@@ -5,17 +5,33 @@ import nltk
 
 
 import nltk
+import os
 
-# These two lines are the "voice" of your model
+# Create a custom directory for NLTK data to avoid permission issues on the cloud
+nltk_data_path = os.path.join(os.getcwd(), 'nltk_data')
+if not os.path.exists(nltk_data_path):
+    os.makedirs(nltk_data_path)
+
+nltk.data.path.append(nltk_data_path)
+
+# Force download the specific missing resources
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
-    nltk.download('punkt')
+    nltk.download('punkt', download_dir=nltk_data_path)
+
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt_tab', download_dir=nltk_data_path)
 
 try:
     nltk.data.find('corpora/stopwords')
 except LookupError:
-    nltk.download('stopwords')
+    nltk.download('stopwords', download_dir=nltk_data_path)
+
+from nltk.tokenize import word_tokenize
+# ... rest of your imports
 
 # ✅ download FIRST
 nltk.download('punkt', quiet=True)
